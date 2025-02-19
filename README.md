@@ -1,8 +1,96 @@
 # skeleton_Vision
-![image](https://github.com/user-attachments/assets/1f296d0b-0608-4c19-a6d7-0edb95ac97e8)
-![image](https://github.com/user-attachments/assets/5a97e37c-46e7-433b-b93f-72943efaf7fd)
-![image](https://github.com/user-attachments/assets/40aecc01-3b57-450a-86df-aca5680fc063)
+### 📌 개요
+본 프로젝트는 **YOLOv5, HRNet, EfficientNet** 등을 활용하여 **사람의 자세를 분석하고 평가**하는 AI 모델을 개발한 자료입니다. YOLOv5를 이용해 **객체를 검출**하고, HRNet으로 **자세 추정(Human Pose Estimation)** 을 수행한 뒤, EfficientNet을 기반으로 **다중 라벨 자세 분류(Multi-Label Classification)** 를 진행했습니다. 마지막으로, **EfficientNet-Lite 모델을 모바일 환경에 적용**하여 **실시간 자세 평가**가 가능하도록 구현하였습니다.
 
+### ✅ TASK 01 - YOLOv5 기반 객체 검출
+#### 📍 목표
+- YOLOv5s를 활용한 데이터 전처리 및 검출 모델 학습
+
+#### 📍 데이터 처리
+- 15,967개 데이터 (Training: 80%, Validation: 10%, Test: 10%)로 분할
+- 누락된 Label 값 제거 및 커스텀 데이터 적용
+
+#### 📍 학습 환경
+- **Google Colab** 사용 (Tesla T4 GPU)
+
+#### 📍 결과
+- 커스텀 데이터 학습을 완료하여 후속 작업(Task 02)에 사용될 **Cropped 이미지 생성**
+
+---
+
+### ✅ TASK 02 - HRNet 기반 자세 추정 (Human Pose Estimation)
+#### 📍 사용 모델
+- **HRNet (High-Resolution Network)**
+
+#### 📍 특징
+- CNN 기반의 고해상도 유지, 적은 연산량으로 높은 정확도 제공
+
+#### 📍 진행 과정
+1. **Task 01에서 생성된 Cropped 이미지**를 입력 데이터로 활용
+2. **Pretrained weight (`pose_hrnet_w48_384x288.pth`)** 적용하여 Pose Estimation 수행
+3. 이미지에 **Skeleton을 그려 결과 시각화**
+
+#### 📍 결과 분석
+- 대부분의 이미지에서 **정확한 Skeleton 예측 성공**
+- 일부 장애물이나 가려진 부분에서도 안정적인 결과 도출
+- 단, **상반신만 크롭된 이미지의 경우 하반신 Keypoint까지 예측되는 문제 발생**
+
+#### 📍 개선 방안
+- **상반신 크롭된 이미지를 별도로 분류**하여 HPE 모델을 재학습하면 더 높은 성능 기대 가능
+
+---
+
+### ✅ TASK 03 - EfficientNet을 활용한 Multi-Label Classification
+#### 📍 목표
+- **사람의 자세를 자동 분류하는 모델 개발**
+
+#### 📍 특징
+- **Multi-Class가 아닌 Multi-Label Classification** 접근법 적용
+- **EfficientNet-b0 모델 활용** (적은 파라미터로 높은 성능)
+
+#### 📍 분류할 라벨
+- **목 비틀림(Neck Twisted)**, **몸통 굽힘(Trunk Bending)**, **몸통 비틀림(Trunk Twisted)** 등
+
+#### 📍 결과
+- **Label별 Confusion Matrix 분석 진행**
+- **EfficientNet_b0 모델을 기반으로 라벨 분류 성능 평가 수행**
+
+---
+
+### ✅ TASK 04 - 인간공학적 평가 기법을 적용한 자세 평가
+#### 📍 목표
+- **인간공학적 평가 방법론(OWAS, REBA, RULA 등)과 AI 모델을 결합하여 자세 평가 점수 산출**
+
+#### 📍 진행 과정
+- **OWAS 방식 적용** (허리, 상체, 하체, 무게 고려)
+- **총 252개 자세 코드 기반으로 Binary Search를 활용한 실시간 점수 계산 방식 도입**
+
+#### 📍 결론
+- 기존 방법보다 **OWAS가 Label과 일치하는 부분이 많아 해당 방법으로 평가 진행**
+
+---
+
+### ✅ TASK 05 - 모바일 환경에서 EfficientNet-Lite 모델 적용
+#### 📍 목표
+- **AI 모델을 모바일 환경에서 동작하도록 변환**
+
+#### 📍 진행 과정
+1. **EfficientNet-Lite 모델을 PyTorch JIT 변환하여 경량화**
+2. **Android Flutter 기반으로 UI 개발**
+3. **이미지 모드 & 스트리밍 모드 제공**
+
+#### 📍 결과
+- **PyTorch 모델을 `model.pt`로 저장**하여 모바일 환경에서도 효율적으로 동작하도록 구현
+
+
+### 📌 결과물
+|값 측정 페이지|결과 값 출력 페이지|
+|-----------------|----|
+| ![image](https://github.com/user-attachments/assets/0d0de8d9-fcb6-40db-8a3b-a3de65be5ee3) ![image](https://github.com/user-attachments/assets/392486b4-9992-4dc8-b50f-80bc813acef3) |![image](https://github.com/user-attachments/assets/66d31473-cd7e-4de3-978e-51b9ec19e4b3)|
+
+
+
+### 📌 세부설명
 ![image](https://github.com/user-attachments/assets/056ce94f-77cb-4bb0-9352-7e11a6617f77)
 ![image](https://github.com/user-attachments/assets/a6c5c061-e23b-400d-af7c-a01584001024)
 ![image](https://github.com/user-attachments/assets/8551226c-4aa5-43f8-89b1-00a6d9ec6ec5)
