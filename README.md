@@ -82,13 +82,14 @@
 #### 📍 결과
 - **PyTorch 모델을 `model.pt`로 저장**하여 모바일 환경에서도 효율적으로 동작하도록 구현
 
+<br>
 
 ### 📌 결과물
 |값 측정 페이지|결과 값 출력 페이지|
 |-----------------|----|
 | ![image](https://github.com/user-attachments/assets/0d0de8d9-fcb6-40db-8a3b-a3de65be5ee3) ![image](https://github.com/user-attachments/assets/392486b4-9992-4dc8-b50f-80bc813acef3) |![image](https://github.com/user-attachments/assets/66d31473-cd7e-4de3-978e-51b9ec19e4b3)|
 
-
+<br>
 
 ### 📌 세부설명
 ![image](https://github.com/user-attachments/assets/056ce94f-77cb-4bb0-9352-7e11a6617f77)
