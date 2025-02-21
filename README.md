@@ -2,6 +2,14 @@
 ### 📌 개요
 본 프로젝트는 **YOLOv5, HRNet, EfficientNet** 등을 활용하여 **사람의 자세를 분석하고 평가**하는 AI 모델을 개발한 자료입니다. YOLOv5를 이용해 **객체를 검출**하고, HRNet으로 **자세 추정(Human Pose Estimation)** 을 수행한 뒤, EfficientNet을 기반으로 **다중 라벨 자세 분류(Multi-Label Classification)** 를 진행했습니다. 마지막으로, **EfficientNet-Lite 모델을 모바일 환경에 적용**하여 **실시간 자세 평가**가 가능하도록 구현하였습니다.
 
+### 📌 시연 영상
+
+
+
+https://github.com/user-attachments/assets/a467a745-6ba0-4137-81d4-5c3c89a652b2
+
+
+
 ### ✅ TASK 01 - YOLOv5 기반 객체 검출
 #### 📍 목표
 - YOLOv5s를 활용한 데이터 전처리 및 검출 모델 학습
